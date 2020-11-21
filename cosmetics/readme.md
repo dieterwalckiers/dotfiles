@@ -1,0 +1,2 @@
+- i3gaps
+- set background image on xfce4 terminal too, with high shading
