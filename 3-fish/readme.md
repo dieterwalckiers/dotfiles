@@ -7,3 +7,12 @@ chsh -s /usr/bin/fish
 
 
 then copy the config file to ~/.config/fish/config
+
+
+additionally, install fisher plugin manager
+curl -sL git.io/fisher | source && fisher install jorgebucaran/fisher
+
+install nvm, procedure is slightly different for fish:
+see: https://eshlox.net/2019/01/27/how-to-use-nvm-with-fish-shell
+
+
