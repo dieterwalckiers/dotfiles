@@ -23,3 +23,6 @@ https://www.dropbox.com/install
 minikube
 https://minikube.sigs.k8s.io/docs/start/
 (Binary download method verified works)
+
+kubectl
+https://kubernetes.io/docs/tasks/tools/install-kubectl/
