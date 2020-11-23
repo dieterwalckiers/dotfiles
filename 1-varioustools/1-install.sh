@@ -21,3 +21,5 @@ sudo apt install xclip
 sudo apt install python3-dev python3-pip python3-setuptools
 # thefuck (correct commands)
 sudo pip3 install thefuck
+# conntrack (needed for minikube)
+sudo apt-get install -y conntrack
