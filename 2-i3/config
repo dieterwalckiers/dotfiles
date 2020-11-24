@@ -122,7 +122,7 @@ bindsym $mod+eacute workspace number $ws2
 bindsym $mod+quotedbl workspace number $ws3
 bindsym $mod+apostrophe workspace number $ws4
 bindsym $mod+parenleft workspace number $ws5
-bindsym $mod+minus workspace number $ws6
+bindsym $mod+section workspace number $ws6
 bindsym $mod+egrave workspace number $ws7
 bindsym $mod+exclam workspace number $ws8
 bindsym $mod+ccedilla workspace number $ws9
@@ -134,7 +134,7 @@ bindsym $mod+Shift+eacute move container to workspace number $ws2
 bindsym $mod+Shift+quotedbl move container to workspace number $ws3
 bindsym $mod+Shift+apostrophe move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+minus move container to workspace number $ws6
+bindsym $mod+Shift+section move container to workspace number $ws6
 bindsym $mod+Shift+egrave move container to workspace number $ws7
 bindsym $mod+Shift+exclam move container to workspace number $ws8
 bindsym $mod+Shift+ccedilla move container to workspace number $ws9
