@@ -183,4 +183,4 @@ bar {
 # dyte custom
 # make sure we set the correct keyboard layout
 exec "setxkbmap -layout be"
-
+bindsym $mod+Tab workspace back_and_forth
