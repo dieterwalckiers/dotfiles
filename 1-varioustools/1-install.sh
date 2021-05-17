@@ -11,8 +11,6 @@ git config --global user.name "Dieter Walckiers"
 sudo apt install build-essential
 # slack
 sudo snap install slack --classic
-# teams
-sudo snap install teams-for-linux
 # vscode
 sudo snap install code --classic
 # helper tools
