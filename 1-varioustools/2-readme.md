@@ -26,3 +26,9 @@ https://minikube.sigs.k8s.io/docs/start/
 
 kubectl
 https://kubernetes.io/docs/tasks/tools/install-kubectl/
+
+font Hasklig (ligatures for vscode)
+https://github.com/i-tu/Hasklig
++ set it up in vscode settings (enable ligatures as well in settings)
+
+
