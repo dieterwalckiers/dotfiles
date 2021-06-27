@@ -8,11 +8,13 @@ sudo apt  install docker-compose
 
 valentina studio
 https://valentina-db.com/en/download-valentina-studio/current
+will probably need a symbolic link in /usr/bin/vstudio to /opt/VStudio/vstudio afterwards
 
 yarn
 https://classic.yarnpkg.com/en/docs/install/#debian-stable
 
 nvm, to switch to specific node versions
+NOTE: if you plan to use fish shell, don't install this yet, installation instruction in 3-fish/readme.md
 https://github.com/nvm-sh/nvm#installing-and-updating
 
 dropbox
