@@ -18,5 +18,5 @@ done
 if [[ -z $daysAgo ]]; then
    daysAgo=0
 fi
-entryName=$(date -d "$date -$daysAgo days" +"%Y-%m-%d")
+entryName=$(date -d "$date -$daysAgo days" +"%Y-%m-%d").md
 vi ~/Dropbox/journal/$entryName
