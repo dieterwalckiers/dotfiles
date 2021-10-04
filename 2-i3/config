@@ -184,3 +184,5 @@ bar {
 # make sure we set the correct keyboard layout
 exec "setxkbmap -layout be"
 bindsym $mod+Tab workspace back_and_forth
+# start synology-drive client
+exec "/usr/bin/synology-drive"
