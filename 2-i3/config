@@ -186,3 +186,6 @@ exec "setxkbmap -layout be"
 bindsym $mod+Tab workspace back_and_forth
 # start synology-drive client
 exec "/usr/bin/synology-drive"
+# run some startup scripts
+exec "~/myscripts/keyboard/tweakkeyboard.sh"
+

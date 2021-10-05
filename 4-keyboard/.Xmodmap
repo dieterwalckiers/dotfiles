@@ -1,6 +1,0 @@
-keycode  46 = l L l L lstroke bar
-keycode  49 = at twosuperior
-keycode  34 = dead_circumflex dead_diaeresis dead_circumflex dead_diaeresis Home dead_abovering bracketleft
-keycode  35 = dollar asterisk dollar asterisk End dead_macron bracketright
-keycode  14 = parenleft 5 parenleft 5 braceleft bracketleft onehalf
-keycode  20 = parenright degree parenright degree braceright bracketright backslash

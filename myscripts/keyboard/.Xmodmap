@@ -1,0 +1,10 @@
+keycode  46 = l L l L lstroke bar
+keycode  49 = at twosuperior
+keycode  34 = asciicircum dead_diaeresis dead_circumflex dead_diaeresis Home dead_abovering bracketleft
+keycode  35 = dollar asterisk dollar asterisk End dead_macron bracketright
+keycode  14 = parenleft 5 parenleft 5 braceleft bracketleft onehalf
+keycode  20 = parenright degree parenright degree braceright bracketright backslash
+keycode  66 = Escape NoSymbol Escape
+keycode  21 = minus underscore
+keycode  61 = equal plus equal plus asciitilde dead_ogonek asciitilde dead_ogonek equal plus asciitilde dead_ogonek
+keycode  17 = exclam 8
