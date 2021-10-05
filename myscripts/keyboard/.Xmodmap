@@ -9,3 +9,4 @@ keycode  21 = minus underscore
 keycode  61 = equal plus equal plus asciitilde dead_ogonek asciitilde dead_ogonek equal plus asciitilde dead_ogonek
 keycode  17 = exclam 8
 keycode  15 = section 6 section 6 dead_circumflex fiveeighths bar fiveeighths minus 6 bar fiveeighths
+keycode  94 = less greater less greater backslash brokenbar backslash brokenbar less greater backslash brokenbar less greater backslash brokenbar
