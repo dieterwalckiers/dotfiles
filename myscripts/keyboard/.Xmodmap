@@ -8,4 +8,4 @@ keycode  66 = Escape NoSymbol Escape
 keycode  21 = minus underscore
 keycode  61 = equal plus equal plus asciitilde dead_ogonek asciitilde dead_ogonek equal plus asciitilde dead_ogonek
 keycode  17 = exclam 8
-keycode  15 = section 6 minus 6 dead_circumflex fiveeighths bar fiveeighths minus 6 bar fiveeighths
+keycode  15 = section 6 section 6 dead_circumflex fiveeighths bar fiveeighths minus 6 bar fiveeighths
