@@ -18,5 +18,26 @@ done
 if [[ -z $daysAgo ]]; then
    daysAgo=0
 fi
-entryName=$(date -d "$date -$daysAgo days" +"%Y-%m-%d").md
-vi ~/Dropbox/journal/$entryName
+journalType="";
+tags="";
+argJournalType=$1;
+
+if [ "$argJournalType" = "p" ]; then
+   journalType="-personal";
+   tags="Journal Journal-personal"
+else
+   journalType="-business";
+   tags="Journal Journal-business"
+fi
+
+dayStamp=$(date -d "$date -$daysAgo days" +"%Y-%m-%d")
+entryName=$dayStamp$journalType
+entryPath=/home/dyte/SynologyDrive/TiddlyWiki5/Wikis/dytewiki/tiddlers/$entryName.tid
+
+if test -f "$entryPath"; then
+   echo "exists"
+else
+   timestamp=$(date +"%Y%m%d%H%M%S000")
+   echo -e "created: $timestamp\nmodified: $timestamp\ntags: $tags\ntitle: $entryName\ntype: text/vnd.tiddlywiki\n\n" > $entryPath
+fi
+vim "+normal G" $entryPath

@@ -1,0 +1,59 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"typescript.tsdk": ".yarn/sdks/typescript/lib",
+		"typescript.enablePromptUseWorkspaceTsdk": true,
+		"search.exclude": {
+			"binders-account-service-v1": true,
+			"binders-authorization-service-v1": true,
+			"binders-billing-service-v1": true,
+			"binders-client-v1": true,
+			"binders-credential-service-v1": true,
+			"binders-dashboard-service-v1": true,
+			"binders-devops-service-v1": true,
+			"binders-editor-service-v2": true,
+			"binders-image-service-v1": true,
+			"binders-manage-service-v1": true,
+			"binders-public-api-service-v1": true,
+			"binders-repository-service-v3": true,
+			"binders-service-common-v1": true,
+			"binders-static-pages-service-v1": true,
+			"binders-tracking-service-v1": true,
+			"binders-ui-kit": true,
+			"binders-user-service-v1": true,
+			"acceptance-testing": true,
+			"ugent-homepage-service-v1": true,
+			"docs": true,
+			"internal-tools": true,
+			"manualto-service-v1": true
+		},
+		"files.exclude": {
+			"binders-account-service-v1": true,
+			"binders-authorization-service-v1": true,
+			"binders-billing-service-v1": true,
+			"binders-client-v1": true,
+			"binders-credential-service-v1": true,
+			"binders-dashboard-service-v1": true,
+			"binders-devops-service-v1": true,
+			"binders-editor-service-v2": true,
+			"binders-image-service-v1": true,
+			"binders-manage-service-v1": true,
+			"binders-public-api-service-v1": true,
+			"binders-repository-service-v3": true,
+			"binders-service-common-v1": true,
+			"binders-static-pages-service-v1": true,
+			"binders-tracking-service-v1": true,
+			"binders-ui-kit": true,
+			"binders-user-service-v1": true,
+			"acceptance-testing": true,
+			"ugent-homepage-service-v1": true,
+			"docs": true,
+			"internal-tools": true,
+			"manualto-service-v1": true
+		}
+	}
+}
