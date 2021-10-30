@@ -13,6 +13,7 @@ sudo apt install build-essential
 sudo snap install slack --classic
 # vscode
 sudo snap install code --classic
+# info: settings sync in vscode is through github account
 # helper tools
 sudo apt install xclip
 # python, so we can use pip
