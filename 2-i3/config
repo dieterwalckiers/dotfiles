@@ -9,7 +9,7 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod3 # works alongside Xmodmap for custom mod key
+set $mod Mod1
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -189,3 +189,23 @@ exec "/usr/bin/synology-drive"
 # run some startup scripts
 exec "~/myscripts/keyboard/tweakkeyboard.sh"
 
+# auto-launch applications
+# exec --no-startup-id i3-msg "workspace 2; exec firefox"
+# exec --no-startup-id i3-msg "workspace 3; exec chromium"
+# exec --no-startup-id i3-msg "workspace 5; exec code"
+# exec --no-startup-id i3-msg "workspace 9; exec slack"
+
+# https://unix.stackexchange.com/questions/533371/how-to-autostart-more-than-one-app-in-different-workspaces-in-i3wm
+# exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace 1: exec i3-sensible-terminal"'
+# exec --no-startup-id sh -c 'sleep 2; i3-msg "workspace 2: exec firefox"'
+# exec --no-startup-id sh -c 'sleep 3; i3-msg "workspace 3: exec chromium"'
+# exec --no-startup-id sh -c 'sleep 4; i3-msg "workspace 5: exec code"'
+# exec --no-startup-id sh -c 'sleep 5; i3-msg "workspace 9: exec slack"'
+# exec --no-startup-id sh -c 'sleep 6; i3-msg "workspace 0: exec i3-sensible-terminal"'
+
+bindsym Mod4+ampersand workspace 1; exec i3-sensible-terminal
+bindsym Mod4+eacute workspace 2; exec firefox
+bindsym Mod4+quotedbl workspace 3; exec chromium
+bindsym Mod4+parenleft workspace 5; exec code
+bindsym Mod4+ccedilla workspace 9; exec slack
+bindsym Mod4+agrave workspace 0; exec i3-sensible-terminal
