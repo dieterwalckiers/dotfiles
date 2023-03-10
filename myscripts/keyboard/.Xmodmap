@@ -11,3 +11,8 @@ keycode  17 = exclam 8
 keycode  15 = section 6 section 6 dead_circumflex fiveeighths bar fiveeighths minus 6 bar fiveeighths
 keycode  94 = less greater less greater backslash brokenbar backslash brokenbar less greater backslash brokenbar less greater backslash brokenbar
 keycode  51 = grave mu asterisk mu dead_grave dead_breve dead_grave dead_breve asterisk mu dead_grave dead_breve asterisk mu dead_grave dead_breve
+! Print: set as modifier (mod3)
+! set mod3 to Print key, so I can use it as i3 modifier
+keycode 108 = Print
+clear mod3
+add mod3 = Print
