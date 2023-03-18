@@ -11,3 +11,4 @@ keycode  17 = exclam 8
 keycode  15 = section 6 section 6 dead_circumflex fiveeighths bar fiveeighths minus 6 bar fiveeighths
 keycode  94 = less greater less greater backslash brokenbar backslash brokenbar less greater backslash brokenbar less greater backslash brokenbar
 keycode  51 = grave mu asterisk mu dead_grave dead_breve dead_grave dead_breve asterisk mu dead_grave dead_breve asterisk mu dead_grave dead_breve
+keycode 133 = Alt_L Meta_L Alt_L Meta_L Alt_L Meta_L Alt_L Meta_L
