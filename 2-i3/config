@@ -206,6 +206,7 @@ exec "~/myscripts/keyboard/tweakkeyboard.sh"
 bindsym Mod4+ampersand workspace 1; exec i3-sensible-terminal
 bindsym Mod4+eacute workspace 2; exec firefox
 bindsym Mod4+quotedbl workspace 3; exec chromium
+bindsym Mod4+apostrophe workspace 4; exec thunar
 bindsym Mod4+parenleft workspace 5; exec code
 bindsym Mod4+ccedilla workspace 9; exec slack
 bindsym Mod4+agrave workspace 0; exec i3-sensible-terminal
