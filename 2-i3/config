@@ -186,8 +186,11 @@ exec "setxkbmap -layout be"
 bindsym $mod+Tab workspace back_and_forth
 # start synology-drive client
 exec "/usr/bin/synology-drive"
+# start safeeyes
+exec "/usr/bin/safeeyes"
 # run some startup scripts
 exec "~/myscripts/keyboard/tweakkeyboard.sh"
+
 
 # auto-launch applications
 # exec --no-startup-id i3-msg "workspace 2; exec firefox"
