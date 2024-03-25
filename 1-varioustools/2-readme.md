@@ -6,10 +6,6 @@ https://docs.docker.com/engine/install/ubuntu/
 docker-compose with
 sudo apt  install docker-compose 
 
-valentina studio
-https://valentina-db.com/en/download-valentina-studio/current
-will probably need a symbolic link in /usr/bin/vstudio to /opt/VStudio/vstudio afterwards
-
 yarn
 https://classic.yarnpkg.com/en/docs/install/#debian-stable
 
@@ -32,5 +28,7 @@ https://kubernetes.io/docs/tasks/tools/install-kubectl/
 font Hasklig (ligatures for vscode)
 https://github.com/i-tu/Hasklig
 + set it up in vscode settings (enable ligatures as well in settings)
+
+obsidian and Yakitrak/obsidian-cli
 
 
