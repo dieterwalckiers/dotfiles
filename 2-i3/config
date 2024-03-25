@@ -213,3 +213,6 @@ bindsym Mod4+apostrophe workspace 4; exec thunar
 bindsym Mod4+parenleft workspace 5; exec code
 bindsym Mod4+ccedilla workspace 9; exec slack
 bindsym Mod4+agrave workspace 0; exec i3-sensible-terminal
+
+exec "synclient VertScrollDelta=-79"
+
