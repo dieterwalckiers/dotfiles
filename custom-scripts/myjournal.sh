@@ -20,6 +20,6 @@ if [[ -z $daysAgo ]]; then
 fi
 
 dayStamp=$(date -d "$date -$daysAgo days" +"%Y-%m-%d")
-obsCommand=$(obs create "dailynotes/$dayStamp" --content "" --append --open)
+obsCommand=$(obs create "dailynotes/$dayStamp" --content "" --append --open) &
 $obsCommand
-
+disown
