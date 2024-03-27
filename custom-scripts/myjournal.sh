@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/dyte/Dropbox/journal
+cd /home/dyte/kennis
 # args howto https://www.baeldung.com/linux/use-command-line-arguments-in-bash-script
 while getopts 123456789 flag
 do
