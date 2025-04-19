@@ -230,9 +230,11 @@ bindsym Ctrl+$mod+l exec "i3lock -c 001842"
 exec xautolock -time 10 -locker "i3lock -c 001842"
 
 # wallpaper (note: exec_always also run on restarting i3, unlike exec which only runs on initial load)
-exec_always --no-startup-id feh --bg-scale ~/Dropbox/pics/wallpapers/mountains.jpg
+exec_always --no-startup-id feh --bg-scale ~/Dropbox/pics/wallpapers/bailey-zindel.jpg
 
 #gpaste
 exec --no-startup-id gpaste-client dr
 bindsym Ctrl+grave exec --no-startup-id gpaste-client ui
 
+# tweak keyboard
+exec_always --no-startup-id xmodmap ~/myscripts/keyboard/.Xmodmap
