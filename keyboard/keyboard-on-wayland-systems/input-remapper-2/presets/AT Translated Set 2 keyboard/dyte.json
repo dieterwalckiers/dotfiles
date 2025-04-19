@@ -1,0 +1,168 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 54,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 38,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + 1",
+        "name": "pipe",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 41,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + KEY_2",
+        "name": "at",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 6,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + KEY_9",
+        "name": "left bracket",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 11,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + KEY_0",
+        "name": "right bracket",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 54,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 6,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + dead_circumflex",
+        "name": "left square bracket",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 54,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 12,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + dollar",
+        "name": "right square bracket",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 58,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "Escape",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 26,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_HOME",
+        "name": "home",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 100,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            },
+            {
+                "type": 1,
+                "code": 27,
+                "origin_hash": "57004818c334c8267c8b12fdbf3d9e47"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_END",
+        "name": "end",
+        "mapping_type": "key_macro"
+    }
+]
