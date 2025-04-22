@@ -30,4 +30,3 @@ https://github.com/i-tu/Hasklig
 + set it up in vscode settings (enable ligatures as well in settings)
 
 
-
