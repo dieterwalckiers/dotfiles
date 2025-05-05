@@ -172,7 +172,7 @@ exec "~/myscripts/keyboard/tweakkeyboard.sh"
 
 bindsym Mod4+ampersand workspace 1; exec i3-sensible-terminal
 bindsym Mod4+eacute workspace 2; exec firefox
-bindsym Mod4+quotedbl workspace 3; exec google-chrome
+bindsym Mod4+quotedbl workspace 3; exec chromium
 bindsym Mod4+apostrophe workspace 4; exec thunar
 bindsym Mod4+parenleft workspace 5; exec code
 bindsym Mod4+ccedilla workspace 9; exec slack
@@ -237,7 +237,9 @@ bindsym Ctrl+grave exec --no-startup-id gpaste-client ui
 # tweak keyboard
 exec_always --no-startup-id /home/dyte/myscripts/keyboard/tweakkeyboard.sh
 
-
 # gestures
 exec_always --no-startup-id libinput-gestures-setup start
+
+exec_always --no-startup-id picom -CGb --config ~/.config/picom/picom.conf
+# exec_always --no-startup-id picom --experimental-backend &
 
