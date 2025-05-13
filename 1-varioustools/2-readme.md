@@ -29,4 +29,8 @@ font Hasklig (ligatures for vscode)
 https://github.com/i-tu/Hasklig
 + set it up in vscode settings (enable ligatures as well in settings)
 
+espanso
+for options-packed system wide text replacement
+config in espanso dir
+
 

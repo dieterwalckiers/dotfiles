@@ -1,3 +1,6 @@
+#deprecated
+2025-05-13 once you're used to the fuzzy autocomplete and search of fish, the zsh version of it feels subpar 
+
 install zsh via apt (more info here https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
 
 to be added to .zshrc:
