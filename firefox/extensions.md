@@ -21,7 +21,8 @@ ap/u https://authenticphoto.com/umbraco
 aps https://dev-authenticphoto.euwest01.umbraco.io
 aps/u https://dev-authenticphoto.euwest01.umbraco.io/umbraco
 bbap https://bitbucket.org/dietermanualto/authentic-service/pull-requests/
-bbmt https://bitbucket.org/bindersmedia/binders-service/pull-requests/
+bbmt https://bitbucket.org/bindersmedia/manualto/pull-requests/
+prs https://bitbucket.org/bindersmedia/manualto/pull-requests/
 cal https://calendar.proton.me/u/0/
 g https://www.google.com/search?q=
 jiap https://dyte.atlassian.net/jira/software/c/projects/AUT/boards/1
