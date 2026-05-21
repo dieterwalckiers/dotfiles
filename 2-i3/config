@@ -146,39 +146,39 @@ set $ws10 "10"
 # dyte custom
 
 # make sure we set the correct keyboard layout
-exec "setxkbmap -layout be"
+exec --no-startup-id "setxkbmap -layout be"
 bindsym $mod+Tab workspace back_and_forth
 # start synology-drive client
-exec "/usr/bin/synology-drive"
+exec --no-startup-id "/usr/bin/synology-drive"
 # start safeeyes
-exec "/usr/bin/safeeyes"
+exec --no-startup-id "/usr/bin/safeeyes"
 # run some startup scripts
-exec "~/myscripts/keyboard/tweakkeyboard.sh"
+exec --no-startup-id "~/myscripts/keyboard/tweakkeyboard.sh"
 
 
 # auto-launch applications
 # exec --no-startup-id i3-msg "workspace 2; exec firefox"
-# exec --no-startup-id i3-msg "workspace 3; exec google-chrome"
+# exec --no-startup-id i3-msg "workspace 3; exec ungoogled-chromium"
 # exec --no-startup-id i3-msg "workspace 5; exec code"
 # exec --no-startup-id i3-msg "workspace 9; exec slack"
 
 # https://unix.stackexchange.com/questions/533371/how-to-autostart-more-than-one-app-in-different-workspaces-in-i3wm
 # exec --no-startup-id sh -c 'sleep 1; i3-msg "workspace 1: exec i3-sensible-terminal"'
 # exec --no-startup-id sh -c 'sleep 2; i3-msg "workspace 2: exec firefox"'
-# exec --no-startup-id sh -c 'sleep 3; i3-msg "workspace 3: exec google-chrome"'
+# exec --no-startup-id sh -c 'sleep 3; i3-msg "workspace 3: exec ungoogled-chromium"'
 # exec --no-startup-id sh -c 'sleep 4; i3-msg "workspace 5: exec code"'
 # exec --no-startup-id sh -c 'sleep 5; i3-msg "workspace 9: exec slack"'
 # exec --no-startup-id sh -c 'sleep 6; i3-msg "workspace 0: exec i3-sensible-terminal"'
 
 bindsym Mod4+ampersand workspace 1; exec i3-sensible-terminal
 bindsym Mod4+eacute workspace 2; exec firefox
-bindsym Mod4+quotedbl workspace 3; exec chromium
+bindsym Mod4+quotedbl workspace 3; exec ungoogled-chromium
 bindsym Mod4+apostrophe workspace 4; exec thunar
 bindsym Mod4+parenleft workspace 5; exec code
 bindsym Mod4+ccedilla workspace 9; exec slack
 bindsym Mod4+agrave workspace 0; exec i3-sensible-terminal
 
-exec "synclient VertScrollDelta=-79"
+exec --no-startup-id "synclient VertScrollDelta=-79"
 
 # move focused workspace between monitors
 bindsym $mod+Ctrl+Shift+l move workspace to output right
@@ -225,10 +225,10 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 001842 --nofork
 # Bind Ctrl-Mod-L to trigger i3Lock 
 bindsym Ctrl+$mod+l exec "i3lock -c 001842"
 # xautolock
-exec xautolock -time 10 -locker "i3lock -c 001842"
+exec --no-startup-id xautolock -time 10 -locker "i3lock -c 001842"
 
 # wallpaper (note: exec_always also run on restarting i3, unlike exec which only runs on initial load)
-exec_always --no-startup-id feh --bg-scale ~/Dropbox/pics/wallpapers/bailey-zindel.jpg
+exec_always --no-startup-id feh --bg-center --image-bg "#000000" ~/Pictures/wallpapers/wallpaper.png
 
 #gpaste
 exec --no-startup-id gpaste-client dr
