@@ -1,4 +1,4 @@
 # Defined in - @ line 1
-function mt --wraps='cd ~/Source/binders-service' --description 'alias mt cd ~/Source/binders-service'
-  cd ~/Source/binders-service $argv;
+function mt --wraps='cd ~/source/manualto' --description 'alias mt cd ~/source/manualto'
+  cd ~/source/manualto $argv;
 end
