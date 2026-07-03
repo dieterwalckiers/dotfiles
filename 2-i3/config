@@ -246,3 +246,6 @@ exec_always --no-startup-id picom -CGb --config ~/.config/picom/picom.conf
 
 # stand-up nudge every 30 min
 exec --no-startup-id sh -c 'while sleep 30m; do notify-send -u critical "🧍 Stand up" "30 min passed"; done'
+
+# Wispr Flow voice dictation (AppImage; hold-to-dictate hotkey lives in the app)
+exec --no-startup-id "~/Applications/wispr-flow.AppImage"
