@@ -222,10 +222,13 @@ bindsym $mod+y layout toggle split
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock -c 001842 --nofork
-# Bind Ctrl-Mod-L to trigger i3Lock 
-bindsym Ctrl+$mod+l exec "i3lock -c 001842"
-# xautolock
-exec --no-startup-id xautolock -time 10 -locker "i3lock -c 001842"
+# Bind Ctrl-Mod-L to lock. Goes through xss-lock rather than calling i3lock
+# directly, so there is only ever one locker process holding the keyboard grab.
+bindsym Ctrl+$mod+l exec --no-startup-id loginctl lock-session
+# Idle lock: xss-lock watches the X screensaver, so the timeout below is what
+# arms it. Replaces xautolock, which fired its own i3lock at the same 600s and
+# raced this one for the keyboard grab.
+exec --no-startup-id xset s 600
 
 # wallpaper (note: exec_always also run on restarting i3, unlike exec which only runs on initial load)
 exec_always --no-startup-id feh --bg-center --image-bg "#000000" ~/Pictures/wallpapers/wallpaper.png
