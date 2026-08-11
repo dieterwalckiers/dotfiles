@@ -13,8 +13,14 @@ matches:
     replace: "Hi there!"
   - trigger: ":dw@"
     replace: "d.walckiers@protonmail.com"
-  - trigger: ":reread"
-    replace: "(Please re-read any files you need because I made changes)"
+  - trigger: ":mvg"
+    replace: "Met vriendelijke groet"
+  # AI prompts
+  - trigger: ":preread"
+    replace: "re-read any files you need because I made changes"
+  - trigger: ":pnohist"
+    replace: "scan for comments/docs detailing this fix, there's no need for that, the feature will land as one batch, no need for an in-between history"
+  # Icons
   - trigger: ":time"
     replace: "⏰"
   - trigger: ":check"
