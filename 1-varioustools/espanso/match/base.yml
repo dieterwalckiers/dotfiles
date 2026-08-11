@@ -19,7 +19,7 @@ matches:
   - trigger: ":preread"
     replace: "re-read any files you need because I made changes"
   - trigger: ":pnohist"
-    replace: "scan for comments/docs detailing this fix, there's no need for that, the feature will land as one batch, no need for an in-between history"
+    replace: "scan for comments/docs detailing this change, there's no need for that, the feature will land as one batch, no need for an in-between history/fix narration"
   # Icons
   - trigger: ":time"
     replace: "⏰"
