@@ -14,19 +14,12 @@ save tiddlers
 	also: point firefox download location to ⁦/home/dyte/Dropbox/wik
 vimium
 snowflake
-wealias
+url alias (cross-browser successor to wealias; wealias is firefox-only)
 	list of aliases:
-ap https://authenticphoto.com
-ap/u https://authenticphoto.com/umbraco
-aps https://dev-authenticphoto.euwest01.umbraco.io
-aps/u https://dev-authenticphoto.euwest01.umbraco.io/umbraco
 bbap https://bitbucket.org/dietermanualto/authentic-service/pull-requests/
 bbmt https://bitbucket.org/bindersmedia/manualto/pull-requests/
-prs https://bitbucket.org/bindersmedia/manualto/pull-requests/
 cal https://calendar.proton.me/u/0/
-g https://www.google.com/search?q=
-jiap https://dyte.atlassian.net/jira/software/c/projects/AUT/boards/1
 jimt https://bindersmedia.atlassian.net/jira/software/c/projects/MT/boards/3
-okta https://dev-568336.oktapreview.com
 pm https://mail.proton.me/u/0/inbox
+prs https://bitbucket.org/bindersmedia/manualto/pull-requests/
 what https://web.whatsapp.com
