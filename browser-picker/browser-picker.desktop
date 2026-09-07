@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Browser Picker
+Exec=@BIN@ %u
+Terminal=false
+NoDisplay=true
+MimeType=x-scheme-handler/unknown;x-scheme-handler/about;text/html;x-scheme-handler/http;x-scheme-handler/https;

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+url=${1:-}
+[[ -n $url ]] || exit 0
+
+# label|command  -- order here is the order in the menu
+browsers=(
+  "firefox|firefox"
+  "chrome|/usr/bin/google-chrome-stable"
+  "edge|/usr/bin/microsoft-edge-stable"
+  "chromium|/usr/bin/ungoogled-chromium"
+)
+
+host=${url#*://}; host=${host%%/*}; host=${host,,}
+
+# Hosts that always go the same place skip the menu entirely.
+# Patterns match the bare host only -- no scheme, no path, no trailing slash.
+case $host in
+  *.whatsapp.com|proton.me|*.proton.me|protonmail.com|*.protonmail.com) choice=firefox ;;
+  # localhost|127.0.0.1)                               choice=chromium ;;
+esac
+
+if [[ -z ${choice:-} ]]; then
+  choice=$(printf '%s\n' "${browsers[@]%%|*}" |
+    dmenu -i -l 4 -p "${host:0:60} ->") || exit 0   # Esc = open nothing
+fi
+
+for b in "${browsers[@]}"; do
+  if [[ ${b%%|*} == "$choice" ]]; then
+    exec setsid -f "${b#*|}" "$url"
+  fi
+done

@@ -14,6 +14,7 @@ Personal dotfiles for setting up an Xubuntu workstation. This is a configuration
 - `keyboard/` - Key remapping configs (Xmodmap for X11, input-remapper for Wayland)
 - `vim/` - Vim config with .tid file syntax highlighting
 - `custom-scripts/` - Scripts to copy to `/usr/bin`
+- `browser-picker/` - Per-link browser chooser registered as the default browser (`install.sh`)
 - `optionaltweaks/` - System tweaks (inotify limits, swap/earlyoom setup)
 
 ## Key Configuration Files
@@ -30,3 +31,4 @@ Personal dotfiles for setting up an Xubuntu workstation. This is a configuration
 3. Install fish shell per `3-shell/fish/readme.md`
 4. Copy i3 config and reboot into i3 session
 5. Apply keyboard remaps as needed
+6. Run `browser-picker/install.sh` to get the per-link browser chooser
