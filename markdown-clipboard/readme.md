@@ -11,6 +11,7 @@ Gmail, Slack, Notion, Confluence or any other WYSIWYG editor.
 md2rich                 convert the markdown already in the clipboard
 md2rich notes.md        convert a file
 cat notes.md | md2rich  convert stdin
+md2rich -c              convert the last Claude Code /copy output
 md2rich -e              open $EDITOR to paste/write markdown, convert on save
 ```
 
@@ -124,3 +125,35 @@ Two more things a GUI launch exposed:
   back to the clipboard when it yields nothing, rather than trusting any
   file-descriptor test. rich2md does the same, and only writes to stdout for
   `-o` or a real file, since a bare pipe may lead nowhere.
+
+
+## Claude Code's `/copy` (`md2rich -c`)
+
+`/copy` reports success but the text never reaches the clipboard here. It writes
+an OSC 52 terminal escape, and **gnome-terminal ignores OSC 52** -- verified by
+emitting one by hand and watching the clipboard stay untouched:
+
+    payload=$(printf 'OSC52-WORKED' | base64 -w0)
+    gnome-terminal --wait -- bash -c "printf '\033]52;c;%s\a' '$payload'"
+    xclip -selection clipboard -o     # unchanged
+
+Nothing in `/copy` can detect that, so it reports a success that did not happen.
+
+`/copy` also writes the response to `/tmp/claude-<uid>/response.md`, and that is
+what `md2rich -c` reads. It reports the file's age, so a stale one is obvious:
+
+    md2rich: 64 words on the clipboard as rich text -- paste away. (from /copy, 12s ago)
+
+Two caveats worth knowing:
+
+- That path has no session id, so concurrent Claude sessions share one file --
+  the most recent `/copy` wins. Fine in practice, since you run `/copy` and then
+  `md2rich -c` straight after.
+- If the response is *entirely* one fenced markdown block, `-c` unwraps it;
+  converting that to a code block is never what you want. Only for a
+  markdown-tagged fence, and only when it wraps the whole file, so a ```python
+  block stays code.
+
+The real fix is a terminal that honours OSC 52 (kitty, alacritty, wezterm,
+foot) -- then `/copy` populates the clipboard directly and plain `md2rich`
+works with no flag.

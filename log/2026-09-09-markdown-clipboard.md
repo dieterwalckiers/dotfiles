@@ -221,3 +221,40 @@ Test note: `script -qec` kills the process group on exit, which takes rich2md's
 `xclip -i` daemon with it and looks like a lost clipboard. It is a harness
 artifact -- under `setsid --fork` (what a launcher actually does) the daemon
 survives. md2rich is immune because richclip double-forks and setsid's itself.
+
+---
+
+# md2rich -c: Claude Code's /copy
+
+Question was whether md2rich could work with text copied via `/copy` inside a
+Claude Code session. It could not, and the reason is not Claude Code's fault.
+
+`/copy` writes an OSC 52 terminal escape to set the clipboard. gnome-terminal
+(VTE 0.68) ignores OSC 52. Verified rather than assumed:
+
+    payload=$(printf 'OSC52-WORKED' | base64 -w0)
+    gnome-terminal --wait -- bash -c "printf '\033]52;c;%s\a' '$payload'"
+    xclip -selection clipboard -o     # still the old marker
+
+The escape is fire-and-forget, so /copy cannot tell it was dropped and reports
+success regardless. That also explains the earlier confusion where the X
+clipboard still held a Chromium selection right after /copy claimed 1792 chars.
+
+/copy also writes /tmp/claude-<uid>/response.md, so `md2rich -c` reads that.
+It reports the file's age so a stale one is obvious.
+
+Two details:
+
+- The path carries no session id; concurrent Claude sessions share one file.
+  Acceptable -- the most recent /copy wins, and the flow is /copy then -c.
+- /copy output is often entirely one ```markdown fenced block (an assistant
+  presenting a PR description for copying). Converting that to a <pre> is never
+  wanted, so -c unwraps it -- but only a markdown-tagged fence wrapping the
+  whole file, so a ```python block stays code. File arguments are never
+  unwrapped; an explicitly passed file is taken literally.
+
+The proper fix is a terminal that honours OSC 52 (kitty, alacritty, wezterm,
+foot); then /copy fills the clipboard and plain md2rich works with no flag.
+
+Verified: -c against a real fenced /copy file, a ```python file staying code, a
+missing /copy file erroring cleanly, plus the full 10-test regression.

@@ -21,21 +21,26 @@ md2rich -- markdown in, rich text on the clipboard.
   md2rich                 convert the markdown already in the clipboard
   md2rich notes.md        convert a file
   cat notes.md | md2rich  convert stdin
+  md2rich -c              convert the last Claude Code /copy output
   md2rich -e              open \$EDITOR to paste/write markdown, convert on save
 
 Then just press ctrl+v in Google Docs, Gmail, Slack, Notion, ...
 Pasting into a plain text field gives you the original markdown back.
 
+  -c, --claude  read Claude Code's /copy file instead of the clipboard, since
+                gnome-terminal drops the OSC 52 escape /copy writes
   -e, --edit    compose in \$EDITOR (currently: ${EDITOR:-nano})
   -h, --help    this message
 USAGE
 }
 
 edit=0
+claude=0
 file=
 
 while [[ $# -gt 0 ]]; do
   case $1 in
+    -c|--claude) claude=1; shift ;;
     -e|--edit) edit=1; shift ;;
     -h|--help) usage; exit 0 ;;
     -*)        echo "md2rich: unknown option $1" >&2; usage >&2; exit 2 ;;
@@ -76,7 +81,32 @@ md=$tmp/in.md
 # decides whether stdin is worth trying; what it yields decides whether we use it.
 stdin_is_redirected() { [[ -p /dev/stdin || -f /dev/stdin ]]; }
 
-if [[ $edit == 1 ]]; then
+# Claude Code's /copy writes its output here as well as trying the clipboard.
+# On a terminal that honours OSC 52 the clipboard route works and this is
+# redundant; gnome-terminal ignores OSC 52, so this is the only way in.
+claude_copy_file() { echo "/tmp/claude-$(id -u)/response.md"; }
+
+# /copy can hand back a response that is entirely one fenced markdown block.
+# Converting that to a code block is never what you want, so unwrap it -- but
+# only when the whole file is that one block, and only for a markdown fence
+# (a ```python block should stay code).
+unwrap_markdown_fence() {
+  local f=$1
+  case $(head -1 "$f") in '```markdown'|'```md') ;; *) return 0 ;; esac
+  [[ $(tail -1 "$f") == '```' ]] || return 0
+  [[ $(grep -c '^```' "$f") -eq 2 ]] || return 0
+  sed -i '1d;$d' "$f"
+}
+
+source_note=
+
+if [[ $claude == 1 ]]; then
+  copied=$(claude_copy_file)
+  [[ -r $copied ]] || die "no /copy output at $copied -- run /copy in Claude Code first"
+  cat -- "$copied" > "$md"
+  unwrap_markdown_fence "$md"
+  source_note=" (from /copy, $(( $(date +%s) - $(stat -c %Y "$copied") ))s ago)"
+elif [[ $edit == 1 ]]; then
   [[ -t 0 ]] || die "-e needs a terminal; run it from a shell"
   # Seed the buffer with the clipboard so "copy, md2rich -e, tweak, save" works.
   clipboard_text "$md" || true
@@ -107,4 +137,4 @@ fi
 "$richclip" "$tmp/out.html" "$md"
 
 words=$(wc -w < "$md" | tr -d ' ')
-report normal "$words words on the clipboard as rich text -- paste away."
+report normal "$words words on the clipboard as rich text -- paste away.$source_note"
