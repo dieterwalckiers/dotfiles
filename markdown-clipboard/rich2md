@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+# Turn rich text on the clipboard back into markdown. The mirror of md2rich:
+# copy from Google Docs, Gmail, a web page, then run this.
+set -euo pipefail
+
+# A GUI launcher (dmenu, an i3 binding) starts from a minimal PATH that usually
+# misses package-manager prefixes, so pandoc goes unfound even though it works
+# fine from a shell. Put the usual suspects back.
+for dir in /home/linuxbrew/.linuxbrew/bin /opt/homebrew/bin /usr/local/bin "$HOME/.local/bin"; do
+  if [[ -d $dir && ":$PATH:" != *":$dir:"* ]]; then PATH="$PATH:$dir"; fi
+done
+export PATH
+
+here=$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)
+filter=$here/html-styles.lua
+[[ -r $filter ]] || filter=$HOME/.local/share/markdown-clipboard/html-styles.lua
+
+usage() {
+  cat <<USAGE
+rich2md -- rich text in, markdown out.
+
+  rich2md                 convert the clipboard, put the markdown back on it
+  rich2md page.html       convert a file
+  cat page.html | rich2md convert stdin
+  rich2md > notes.md      redirect, and the clipboard is left alone
+  rich2md -o | less       piping needs -o (a bare pipe may lead nowhere)
+
+  -o, --stdout  print the markdown instead of replacing the clipboard
+  -h, --help    this message
+USAGE
+}
+
+to_stdout=0
+file=
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -o|--stdout) to_stdout=1; shift ;;
+    -h|--help)   usage; exit 0 ;;
+    -*)          echo "rich2md: unknown option $1" >&2; usage >&2; exit 2 ;;
+    *)           file=$1; shift ;;
+  esac
+done
+
+# Always leave a trace on stderr -- a redirected log should not come out empty.
+# When there is no terminal to read it (a dmenu or i3 launch), also raise a
+# desktop notification, which is the only feedback such a run can give.
+report() { # report <urgency> <message>
+  echo "rich2md: $2" >&2 || true
+  if [[ ! -t 2 ]] && command -v notify-send >/dev/null; then
+    notify-send -u "$1" -a rich2md rich2md "$2" || true
+  fi
+}
+die() { report critical "$1"; exit 1; }
+
+# xclip -o asks for the STRING target by default, and an owner that only
+# advertises UTF8_STRING hands back nothing -- which looks exactly like an empty
+# clipboard. Try the targets in turn instead.
+clipboard_html() { # clipboard_html <outfile>
+  local target
+  for target in text/html "text/html;charset=utf-8"; do
+    xclip -selection clipboard -t "$target" -o > "$1" 2>/dev/null || true
+    if [[ -s $1 ]]; then return 0; fi
+  done
+  return 1
+}
+
+# dmenu runs commands through fish, which hands them *empty* pipes --
+# indistinguishable from a real shell pipeline until you read them. For stdin we
+# just try it and see. For stdout there is nothing to try, so writing there needs
+# -o or a real file; a bare pipe might lead nowhere.
+stdin_is_redirected() { [[ -p /dev/stdin || -f /dev/stdin ]]; }
+stdout_is_a_file()    { [[ -f /dev/stdout ]]; }
+
+command -v pandoc >/dev/null || die "pandoc not found -- brew install pandoc"
+[[ -r $filter ]] || die "missing html-styles.lua"
+
+tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+html=$tmp/in.html
+
+if [[ -n $file ]]; then
+  [[ -r $file ]] || die "cannot read $file"
+  cat -- "$file" > "$html"
+else
+  if stdin_is_redirected; then cat > "$html" || true; fi
+  if [[ ! -s $html ]]; then
+    clipboard_html "$html" || true
+    [[ -s $html ]] || die "no rich text on the clipboard -- copy from a rich editor first"
+  fi
+fi
+
+[[ -s $html ]] || die "nothing to convert"
+
+# Google Docs wraps the whole fragment in a <b> that is explicitly not bold;
+# left alone it turns the entire document bold. Pandoc shrugs off the orphaned
+# closing tag, so dropping the opening one is enough.
+sed -E 's@<b[^>]*font-weight:[[:space:]]*normal[^>]*>@@gI' "$html" > "$tmp/clean.html"
+
+pandoc -f html+native_spans -t gfm-raw_html --wrap=none \
+  --lua-filter="$filter" "$tmp/clean.html" > "$tmp/out.md"
+
+# On a terminal the useful thing is a round trip; redirected, behave like a filter.
+if [[ $to_stdout == 1 ]] || stdout_is_a_file; then
+  cat "$tmp/out.md"
+else
+  xclip -selection clipboard -i < "$tmp/out.md"
+  words=$(wc -w < "$tmp/out.md" | tr -d ' ')
+  report normal "$words words on the clipboard as markdown."
+fi

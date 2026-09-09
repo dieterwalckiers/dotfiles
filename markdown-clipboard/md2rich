@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+# Turn markdown into rich text on the clipboard, ready to paste into
+# Google Docs, Gmail, Slack, Notion, or any other WYSIWYG editor.
+set -euo pipefail
+
+# A GUI launcher (dmenu, an i3 binding) starts from a minimal PATH that usually
+# misses package-manager prefixes, so pandoc goes unfound even though it works
+# fine from a shell. Put the usual suspects back.
+for dir in /home/linuxbrew/.linuxbrew/bin /opt/homebrew/bin /usr/local/bin "$HOME/.local/bin"; do
+  if [[ -d $dir && ":$PATH:" != *":$dir:"* ]]; then PATH="$PATH:$dir"; fi
+done
+export PATH
+
+here=$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)
+richclip=$here/richclip
+
+usage() {
+  cat <<USAGE
+md2rich -- markdown in, rich text on the clipboard.
+
+  md2rich                 convert the markdown already in the clipboard
+  md2rich notes.md        convert a file
+  cat notes.md | md2rich  convert stdin
+  md2rich -e              open \$EDITOR to paste/write markdown, convert on save
+
+Then just press ctrl+v in Google Docs, Gmail, Slack, Notion, ...
+Pasting into a plain text field gives you the original markdown back.
+
+  -e, --edit    compose in \$EDITOR (currently: ${EDITOR:-nano})
+  -h, --help    this message
+USAGE
+}
+
+edit=0
+file=
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -e|--edit) edit=1; shift ;;
+    -h|--help) usage; exit 0 ;;
+    -*)        echo "md2rich: unknown option $1" >&2; usage >&2; exit 2 ;;
+    *)         file=$1; shift ;;
+  esac
+done
+
+# Always leave a trace on stderr -- a redirected log should not come out empty.
+# When there is no terminal to read it (a dmenu or i3 launch), also raise a
+# desktop notification, which is the only feedback such a run can give.
+report() { # report <urgency> <message>
+  echo "md2rich: $2" >&2 || true
+  if [[ ! -t 2 ]] && command -v notify-send >/dev/null; then
+    notify-send -u "$1" -a md2rich md2rich "$2" || true
+  fi
+}
+die() { report critical "$1"; exit 1; }
+
+# xclip -o asks for the STRING target by default, and an owner that only
+# advertises UTF8_STRING hands back nothing -- which looks exactly like an empty
+# clipboard. Try the targets in turn instead.
+clipboard_text() { # clipboard_text <outfile>
+  local target
+  for target in UTF8_STRING "text/plain;charset=utf-8" text/plain STRING; do
+    xclip -selection clipboard -t "$target" -o > "$1" 2>/dev/null || true
+    if [[ -s $1 ]]; then return 0; fi
+  done
+  return 1
+}
+
+command -v pandoc >/dev/null || die "pandoc not found -- brew install pandoc"
+
+tmp=$(mktemp -d); trap 'rm -rf "$tmp"' EXIT
+md=$tmp/in.md
+
+# dmenu runs commands through fish, which hands them an *empty* pipe on stdin --
+# indistinguishable from "cat notes.md | md2rich" until you read it. So this only
+# decides whether stdin is worth trying; what it yields decides whether we use it.
+stdin_is_redirected() { [[ -p /dev/stdin || -f /dev/stdin ]]; }
+
+if [[ $edit == 1 ]]; then
+  [[ -t 0 ]] || die "-e needs a terminal; run it from a shell"
+  # Seed the buffer with the clipboard so "copy, md2rich -e, tweak, save" works.
+  clipboard_text "$md" || true
+  "${EDITOR:-nano}" "$md"
+elif [[ -n $file ]]; then
+  [[ -r $file ]] || die "cannot read $file"
+  cat -- "$file" > "$md"
+else
+  if stdin_is_redirected; then cat > "$md" || true; fi
+  if [[ ! -s $md ]]; then clipboard_text "$md" || true; fi
+fi
+
+[[ -s $md ]] || die "nothing to convert -- the clipboard has no text"
+
+# gfm gives us tables, strikethrough, task lists and autolinks. Highlighting
+# is off because it styles code with CSS classes that WYSIWYG editors strip,
+# leaving behind the empty line-anchors it also emits.
+{
+  printf '<meta charset="utf-8">'
+  pandoc -f gfm -t html --wrap=none --syntax-highlighting=none "$md" |
+    # Editors drop <input> elements, which would silently eat the checkboxes.
+    sed -e 's|<input type="checkbox" checked="" */>|\&#9746; |g' \
+        -e 's|<input type="checkbox" */>|\&#9744; |g'
+} > "$tmp/out.html"
+
+# richclip reads both files before it backgrounds itself, so our trap is
+# free to clean up as soon as it returns.
+"$richclip" "$tmp/out.html" "$md"
+
+words=$(wc -w < "$md" | tr -d ' ')
+report normal "$words words on the clipboard as rich text -- paste away."
