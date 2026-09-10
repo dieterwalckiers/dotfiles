@@ -12,6 +12,36 @@ browsers=(
   "chromium|/usr/bin/ungoogled-chromium"
 )
 
+# Seconds the menu may sit unanswered before a desktop notification points at
+# it -- for links opened by some background app, where the dmenu bar is easy
+# to miss. Override with BROWSER_PICKER_NAG_AFTER.
+nag_after=${BROWSER_PICKER_NAG_AFTER:-5}
+nag_id=90210   # fixed id: a second nag replaces the first instead of stacking
+nag_pid=""
+
+nag_start() {
+  ( sleep "$nag_after"
+    if command -v dunstify >/dev/null 2>&1; then
+      dunstify -r "$nag_id" -u critical -i web-browser \
+        "Browser picker" "A link is waiting for a browser: $1"
+    elif command -v notify-send >/dev/null 2>&1; then
+      notify-send -t 20000 -i web-browser \
+        "Browser picker" "A link is waiting for a browser: $1"
+    fi ) >/dev/null 2>&1 &
+  nag_pid=$!
+}
+
+# Every step here must tolerate failure: once the nag has already fired the
+# background job is gone, and a failing kill under `set -e` would take the
+# script down before the browser ever opened.
+nag_stop() {
+  [[ -n $nag_pid ]] && { kill "$nag_pid" 2>/dev/null || true; }
+  if command -v dunstify >/dev/null 2>&1; then
+    dunstify -C "$nag_id" 2>/dev/null || true
+  fi
+  return 0
+}
+
 host=${url#*://}; host=${host%%/*}; host=${host,,}
 
 # Hosts that always go the same place skip the menu entirely.
@@ -22,8 +52,11 @@ case $host in
 esac
 
 if [[ -z ${choice:-} ]]; then
+  nag_start "$host"
   choice=$(printf '%s\n' "${browsers[@]%%|*}" |
-    dmenu -i -l 4 -p "${host:0:60} ->") || exit 0   # Esc = open nothing
+    dmenu -i -l 4 -p "${host:0:60} ->") || choice=""
+  nag_stop
+  [[ -n $choice ]] || exit 0   # Esc = open nothing
 fi
 
 for b in "${browsers[@]}"; do
